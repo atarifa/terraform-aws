@@ -28,3 +28,10 @@ variable "max_subnets" {
 variable "access_ip" {
   type = string
 }
+
+variable "security_groups" {
+}
+
+variable "db_subnet_group" {
+  type = bool
+}
