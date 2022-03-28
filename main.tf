@@ -12,16 +12,22 @@ module "networking" {
   db_subnet_group  = true
 }
 
-module "database" {
-  source                  = "./database"
-  db_storage              = 10
-  db_engine_version       = "5.7.22"
-  db_instance_class       = "db.t2.micro"
-  dbname                  = var.dbname
-  dbuser                  = var.dbuser
-  dbpassword              = var.dbpassword
-  db_identifier           = "mtc-db"
-  db_subnet_group_name    = ""
-  vpc_security_groups_ids = []
-  skip_db_snapshot        = true
+# module "database" {
+#   source                  = "./database"
+#   db_storage              = 10
+#   db_engine_version       = "5.7.22"
+#   db_instance_class       = "db.t2.micro"
+#   dbname                  = var.dbname
+#   dbuser                  = var.dbuser
+#   dbpassword              = var.dbpassword
+#   db_identifier           = "mtc-db"
+#   db_subnet_group_name    = ""
+#   vpc_security_groups_ids = []
+#   skip_db_snapshot        = true
+# }
+
+module "loadbalancing" {
+  source = "./loadbalancing"
+  public_sg = module.networking.public_sg
+  public_subnets = module.networking.public_subnets
 }
